@@ -1,9 +1,8 @@
-package com.clara;
+package com.BorisV;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
-
-import javax.swing.JPanel;
 
 /** This class responsible for displaying the graphics, so the snake, grid, kibble, instruction text and high score
  * 
