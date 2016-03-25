@@ -1,8 +1,7 @@
 package com.BorisV;
 
-import java.util.Timer;
-
 import javax.swing.*;
+import java.util.Timer;
 
 
 public class SnakeGame {
