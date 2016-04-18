@@ -82,6 +82,7 @@ public class SnakeGame {
 		setGameStage(BEFORE_GAME);
 		snakeFrame.setVisible(true);
 
+
 	}
 
 	private static void initializeGame() {
@@ -100,6 +101,7 @@ public class SnakeGame {
 		score = new Score();
 
 		Score.increaseScore();
+		//added by Boris
 
 
 		componentManager.addScore(score);
