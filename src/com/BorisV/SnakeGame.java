@@ -1,19 +1,19 @@
 package com.BorisV;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Timer;
 
 
 public class SnakeGame {
 
-	public final static int xPixelMaxDimension = 501;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
-	public final static int yPixelMaxDimension = 501;
+	public final static int xPixelMaxDimension = 1201;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
+	public final static int yPixelMaxDimension = 601;
 
 	public static int xSquares ;
 	public static int ySquares ;
 
 	public final static int squareSize = 50;
-
 	protected static Snake snake ;
 
 	private static GameComponentManager componentManager;
@@ -31,7 +31,7 @@ public class SnakeGame {
 	private static int gameStage = BEFORE_GAME;  //use this to figure out what should be happening. 
 	//Other classes like Snake and DrawSnakeGamePanel will query this, and change its value
 
-	protected static long clockInterval = 500; //controls game speed
+	protected static long clockInterval = 300; //controls game speed
 	//Every time the clock ticks, the snake moves
 	//This is the time between clock ticks, in milliseconds
 	//1000 milliseconds = 1 second.
@@ -62,11 +62,13 @@ public class SnakeGame {
 
 		snakeFrame.setSize(xPixelMaxDimension, yPixelMaxDimension);
 		snakeFrame.setUndecorated(true); //hide title bar
+		//Change the coordinate of the JFrame
+		snakeFrame.setLocation(100, 100);
 		snakeFrame.setVisible(true);
 		snakeFrame.setResizable(false);
 
 		snakePanel = new DrawSnakeGamePanel(componentManager);
-
+		snakePanel.setBackground(Color.cyan);
 		snakePanel.setFocusable(true);
 		snakePanel.requestFocusInWindow(); //required to give this component the focus so it can generate KeyEvents
 
@@ -76,9 +78,10 @@ public class SnakeGame {
 		snakePanel.addKeyListener(new GameControls());
 		snakePanel.addKeyListener(new SnakeControls(snake));
 
-		setGameStage(BEFORE_GAME);
 
+		setGameStage(BEFORE_GAME);
 		snakeFrame.setVisible(true);
+
 	}
 
 	private static void initializeGame() {
@@ -95,6 +98,9 @@ public class SnakeGame {
 		componentManager.addKibble(kibble);
 
 		score = new Score();
+
+		Score.increaseScore();
+
 
 		componentManager.addScore(score);
 

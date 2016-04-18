@@ -16,7 +16,7 @@ public class GameControls implements KeyListener{
 		//Get the component which generated this event
 		//Hopefully, a DrawSnakeGamePanel object.
 
-		DrawSnakeGamePanel panel = (DrawSnakeGamePanel)ev.getComponent();
+		DrawSnakeGamePanel panel = (DrawSnakeGamePanel) ev.getComponent();
 
 		if (SnakeGame.getGameStage() == SnakeGame.BEFORE_GAME){
 			//Start the game

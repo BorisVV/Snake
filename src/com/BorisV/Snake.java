@@ -19,7 +19,7 @@ public class Snake {
 	//A non-zero number means part of the snake is in the square
 	//The head of the snake is 1, rest of segments are numbered in order
 
-	private int currentHeading;  //Direction snake is going in, ot direction user is telling snake to go
+	static int currentHeading;  //Direction snake is going in, ot direction user is telling snake to go
 	private int lastHeading;    //Last confirmed movement of snake. See moveSnake method
 	
 	private int snakeSize;   //size of snake - how many segments?
@@ -181,9 +181,10 @@ public class Snake {
 			snakeHeadX ++ ;
 		}
 
+
 		//Does this make snake hit the wall?
 		if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0 ) {
-			hitWall = true;	
+			hitWall = true;
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
 			return;
 		}
@@ -198,7 +199,7 @@ public class Snake {
 		}
 
 		//Otherwise, game is still on. Add new head
-		snakeSquares[snakeHeadX][snakeHeadY] = 1; 
+		snakeSquares[snakeHeadX][snakeHeadY] = 1;
 
 		//If snake did not just eat, then remove tail segment
 		//to keep snake the same length.
@@ -285,5 +286,4 @@ public class Snake {
 
 
 }
-
 
