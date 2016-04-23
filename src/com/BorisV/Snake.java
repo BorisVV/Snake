@@ -55,8 +55,8 @@ public class Snake {
 
 		snakeSize = 3;
 
-		currentHeading = DIRECTION_LEFT;
-		lastHeading = DIRECTION_LEFT;
+//		currentHeading = DIRECTION_LEFT;
+//		lastHeading = DIRECTION_LEFT;
 		
 		justAteMustGrowThisMuch = 0;
 	}
@@ -113,7 +113,8 @@ public class Snake {
 
 	protected void moveSnake(){
 		//Called every clock tick
-		
+
+
 		//Must check that the direction snake is being sent in is not contrary to current heading
 		//So if current heading is down, and snake is being sent up, then should ignore.
 		//Without this code, if the snake is heading up, and the user presses left then down quickly, the snake will back into itself.
@@ -129,7 +130,7 @@ public class Snake {
 		if (currentHeading == DIRECTION_RIGHT && lastHeading == DIRECTION_LEFT) {
 			currentHeading = DIRECTION_LEFT; //keep going the same way
 		}
-		
+
 		//Did you hit the wall, snake? 
 		//Or eat your tail? Don't move. 
 
@@ -142,6 +143,8 @@ public class Snake {
 			SnakeGame.setGameStage(SnakeGame.GAME_WON);
 			return;
 		}
+
+
 
 		//Use snakeSquares array, and current heading, to move snake
 
@@ -163,6 +166,7 @@ public class Snake {
 			}
 		}
 
+
 		//now identify where to add new snake head
 		if (currentHeading == DIRECTION_UP) {		
 			//Subtract 1 from Y coordinate so head is one square up
@@ -182,21 +186,42 @@ public class Snake {
 		}
 
 
-		//Does this make snake hit the wall?
-		if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0 ) {
-			hitWall = true;
-			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+
+		//This is to make the snake go through the wall on the left or up/top sides
+		//added by boris
+		if (snakeHeadX >= maxX) {
+			snakeHeadX = 0;
+			throughWall(); //this makes it go through the right side
+		}if (snakeHeadX < 0) {
+			snakeHeadX = maxX;
+			throughWall(); //this makes it go through the left side
 			return;
+		}if (snakeHeadY < 0) {
+			snakeHeadY = maxY;
+			throughWall(); //this makes it go through the up side
+			return;
+		}if(snakeHeadY >= maxY){
+			snakeHeadY = 0;
+			throughWall(); //this makes it go through the doun side
 		}
+
+		//Does this make snake hit the wall?
+//		if (snakeHeadX >= maxX || snakeHeadX < 0 || snakeHeadY >= maxY || snakeHeadY < 0 ) {
+//		if(snakeHeadY < 0){
+//			hitWall = false;
+//			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
+//			return;
+//		}
+
 
 		//Does this make the snake eat its tail?
 
 		if (snakeSquares[snakeHeadX][snakeHeadY] != 0) {
-
 			ateTail = true;
 			SnakeGame.setGameStage(SnakeGame.GAME_OVER);
 			return;
 		}
+
 
 		//Otherwise, game is still on. Add new head
 		snakeSquares[snakeHeadX][snakeHeadY] = 1;
@@ -214,13 +239,15 @@ public class Snake {
 				}
 			}
 		}
+
 		else {
 			//Snake has just eaten. leave tail as is.  Decrease justAteMustGrowThisMuch variable by 1.
 			justAteMustGrowThisMuch -- ;
 			snakeSize ++;
 		}
-		
+
 		lastHeading = currentHeading; //Update last confirmed heading
+
 
 	}
 
@@ -278,12 +305,28 @@ public class Snake {
 	}
 
 	public boolean isGameOver() {
-		if (hitWall || ateTail){
+//		if (hitWall || ateTail) {
+		if(ateTail){
 			return true;
 		}
 		return false;
+
 	}
 
 
+	//Added to make it go through the wall on the x zero and the y zero
+	//added by boris
+	public void throughWall() {
+		if (justAteMustGrowThisMuch == 0) {
+			for (int x = 0 ; x < maxX ; x++) {
+				for (int y = 0 ; y < maxY ; y++){
+					if (snakeSquares[x][y] == snakeSize+1) {
+						snakeSquares[x][y] = 0;
+					}
+				}
+			}
+		}
+	}   //this code is a copy of the one inside of the move snake up above, I just implemented it
+		//for the wall on the left and on the top
 }
 

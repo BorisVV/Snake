@@ -7,7 +7,7 @@ import java.util.Timer;
 
 public class SnakeGame {
 
-	public final static int xPixelMaxDimension = 1201;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
+	public final static int xPixelMaxDimension = 901;  //Pixels in window. 501 to have 50-pixel squares plus 1 to draw a border on last square
 	public final static int yPixelMaxDimension = 601;
 
 	public static int xSquares ;
